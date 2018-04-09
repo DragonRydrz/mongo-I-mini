@@ -17,4 +17,4 @@ const bearSchema = new mongoose.Schema({
 
 const bearModel = mongoose.model('Bear', bearSchema);
 
-module.export = bearModel;
+module.exports = bearModel;
