@@ -1,6 +1,12 @@
 const express = require('express');
 const helmet = require('helmet');
 const cors = require('cors');
+const mongoose = require('mongoose');
+
+mongoose
+  .connect('mongodb://localhost/beardb')
+  .then(() => console.log('\n=== connected to MongoDB ===\n'))
+  .catch(error => console.log('error connecting to db'));
 
 const bearController = require('./bears/bearController');
 

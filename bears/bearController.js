@@ -1,18 +1,38 @@
 const router = require('express').Router();
 
+const Bear = require('./bearModel.js');
+
 router
   .route('/')
   .get((req, res) => {
-    res.status(200).json({ route: '/api/bears/' });
+    Bear.find({})
+      .then(bears => {
+        res.status(200).json(bears);
+      })
+      .catch(error => {
+        res.status(500).json(error);
+      });
   })
   .post((req, res) => {
-    res.status(201).json({ status: 'please implement POST functionality' });
+    const bear = new Bear(req.body);
+    bear
+      .save()
+      .then(savedBear => res.json(savedBear))
+      .catch(error => {
+        res.status(500).json(error);
+      });
   });
 
 router
   .route('/:id')
   .get((req, res) => {
-    res.status(200).json({ route: '/api/bears/' + req.params.id });
+    Bear.findById(req.params.id)
+      .then(bears => {
+        res.status(200).json(bears);
+      })
+      .catch(error => {
+        res.status(500).json(error);
+      });
   })
   .delete((req, res) => {
     res.status(200).json({ status: 'please implement DELETE functionality' });
